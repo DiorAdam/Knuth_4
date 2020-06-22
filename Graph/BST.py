@@ -7,8 +7,43 @@ class TreeNode:
 
 
 class BST:
-    def __init__(self):
+    def __init__(self,inputValues):
+        self.root = TreeNode(int(inputValues[0]))
+        nodeQueue = [self.root]
+        front = 0
+        index = 1
+        while index < len(inputValues):
+            node = nodeQueue[front]
+            front = front + 1
+
+            item = inputValues[index]
+            index = index + 1
+            if item:
+                leftNumber = item
+                node.left = TreeNode(leftNumber)
+                nodeQueue.append(node.left)
+
+            if index >= len(inputValues):
+                break
+
+            item = inputValues[index]
+            index = index + 1
+            if item :
+                rightNumber = item
+                node.right = TreeNode(rightNumber)
+                nodeQueue.append(node.right)
+    
         
+    def height(self):
+        head = self.root
+        if not head: return -1
+        return 1 + max(head.left.height(),head.right.height())
+    
+    def vertices(self):
+        head = self.root
+        if not head: return 0
+        return 1 + head.left.vertices() + head.right.vertices()
+
     def insert(root, val):
         if not root : return TreeNode(val)
         elif root.val > val:
@@ -17,6 +52,9 @@ class BST:
         else:
             root.left = insert(root.right,val)
             return root.right
+    
+
+
     
 
 
