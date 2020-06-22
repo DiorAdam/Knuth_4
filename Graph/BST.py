@@ -44,14 +44,14 @@ class BST:
         if not head: return 0
         return 1 + head.left.vertices() + head.right.vertices()
 
-    def insert(root, val):
-        if not root : return TreeNode(val)
-        elif root.val > val:
-            root.left = insert(root.left,val)
-            return root.left
+    def insert(self, val):
+        if not self.root : return TreeNode(val)
+        elif self.root.val > val:
+            self.root.left = self.root.left.insert(val)
+            return self.root.left
         else:
-            root.left = insert(root.right,val)
-            return root.right
+            self.root.right = self.root.right.insert(val)
+            return self.root.right
     
 
 
