@@ -5,7 +5,6 @@ class TreeNode:
         self.right = None
 
 
-
 class BST:
     def __init__(self,inputValues):
         self.root = TreeNode(int(inputValues[0]))
@@ -18,7 +17,7 @@ class BST:
 
             item = inputValues[index]
             index = index + 1
-            if item:
+            if not item is None:
                 leftNumber = item
                 node.left = TreeNode(leftNumber)
                 nodeQueue.append(node.left)
@@ -28,30 +27,38 @@ class BST:
 
             item = inputValues[index]
             index = index + 1
-            if item :
+            if not item is None :
                 rightNumber = item
                 node.right = TreeNode(rightNumber)
                 nodeQueue.append(node.right)
     
         
-    def height(self):
-        head = self.root
-        if not head: return -1
-        return 1 + max(head.left.height(),head.right.height())
+    def height(self, head = -1):
+        if head == -1: head = self.root
+        if head is None: return -1
+        return 1 + max(self.height(head.left),self.height(head.right))
     
-    def vertices(self):
-        head = self.root
-        if not head: return 0
-        return 1 + head.left.vertices() + head.right.vertices()
+    def vertices(self, head = -1):
+        if head==-1: head = self.root
+        if head is None: return 0
+        print(head.val)
+        return 1 + self.vertices(head.left) + self.vertices(head.right)
 
-    def insert(self, val):
-        if not self.root : return TreeNode(val)
-        elif self.root.val > val:
-            self.root.left = self.root.left.insert(val)
-            return self.root.left
+    def insert(self, val, head = -1):
+        if head == -1: head = self.root
+        if not head : return TreeNode(val)
+        elif head.val > val:
+            head.left = self.insert(val, head.left)
+            return head.left
         else:
-            self.root.right = self.root.right.insert(val)
-            return self.root.right
+            head.right = self.insert(val, head.right)
+            return head.right
+
+    #def delete(self, val):
+
+
+u = BST([2,0,4])
+print(u.vertices())
     
 
 
