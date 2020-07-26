@@ -59,6 +59,7 @@ class BST:
         return helper()
 
     def searchInsert(self, val):
+        '''recursive version
         def helper(head = self.root):
             if not head : return TreeNode(val)
             if head.val == val:
@@ -70,18 +71,44 @@ class BST:
                 head.right = helper(head.right)
             return head
         self.root = helper()
+        '''
+        #iterative version
+        head = self.root
+        while True:
+            if head.val == val: 
+                print(str(val)+ " is already in the BST root")
+                return 
+            elif head.val > val:
+                if head.left: head = head.left
+                else: break
+            else: 
+                if head.right: head = head.right
+                else : break
+        if head.val > val: head.left = TreeNode(val)
+        else: head.right = TreeNode(val) 
+
 
 
     #def delete(self, val):
 
 
 zodiac = ["CAPRICORN", "AQUARIUS", "PISCES", "PISCES", "ARIES", "TAURUS", "GEMINI", "CANCER", "LEO", "VIRGO", "LIBRA", "SCORPIO"]
-u = BST([zodiac[0]])
-for val in zodiac:
-    u.searchInsert(val)
-u.prettyPrintTree()
-print(u.order())
-print(u.height())
+permutation = [1,-3,4,5,-5,-1,0,2,-6,-2,-4]
+zigzag = []
+for x in permutation:
+    zigzag.append(zodiac[x])
+
+inorder = sorted(zodiac)
+
+def represent(l):
+    u = BST([l[0]])
+    for val in l:
+        u.searchInsert(val)
+    u.prettyPrintTree()
+    #print(u.order())
+    #print(u.height())
+
+represent(zodiac)
 
 
     
