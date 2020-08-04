@@ -89,7 +89,42 @@ class BST:
 
 
 
-    #def delete(self, val):
+    def delete(self, val):
+        Q = self.root
+        while Q and Q.val != val:
+            if Q.val > val:
+                Q = Q.left
+            else:
+                Q = Q.right
+        if not Q:
+            print(str(val) + " is not in self.root")
+            return 
+        T = Q
+        R = T.right
+        if not R:
+            T = T.left
+        elif not R.left:
+            R.left = T.left
+            T=R
+        else:
+            S = R.left
+            while S.left:
+                R = S
+                S = S.left
+            S.left = T.left
+            R.left = S.right
+            S.right = T.right
+            T = S
+        Q.val = T.val
+        Q.left = T.left
+        Q.right = T.right
+    
+
+
+
+        
+        
+        
 
 
 zodiac = ["CAPRICORN", "AQUARIUS", "PISCES", "PISCES", "ARIES", "TAURUS", "GEMINI", "CANCER", "LEO", "VIRGO", "LIBRA", "SCORPIO"]
@@ -104,6 +139,7 @@ def represent(l):
     u = BST([l[0]])
     for val in l:
         u.searchInsert(val)
+    u.delete("PISCES")
     u.prettyPrintTree()
     #print(u.order())
     #print(u.height())
